@@ -93,11 +93,6 @@ def update(reseau, pers_info, args):
             if not args.d:
                 #crée une liste avec les amis de pers
                 amis = [i for i in range(len(pers_info)) if reseau[pers][i]]
-                if len(amis) != 0:
-                    apprenti = choice(amis)
-                    if not pers_info[apprenti]:
-                        pers_connait += 1
-                    pers_info[apprenti] = True
             #Si l'option don't tell again a été choisi, seules les personnes ne
             #Connaissant pas la rumeur peuvent recevoir la rumeur
             else:
@@ -105,8 +100,10 @@ def update(reseau, pers_info, args):
                 #pas la rumeur
                 amis = [i for i in range(len(pers_info)) \
                                         if reseau[pers][i] and not pers_info[i]]
-                if len(amis) != 0:
+            if len(amis) != 0:
+                apprenti = choice(amis)
+                if not pers_info[apprenti]:
                     pers_connait += 1
-                    pers_info[choice(amis)] = True
+                pers_info[apprenti] = True
     return pers_connait
 
