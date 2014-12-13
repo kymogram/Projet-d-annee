@@ -95,7 +95,7 @@ def variable_arg():
         nbr_simu += 1
     return alea_indice, alea_init, nbr_simu
     
-def verification_arg(args):
+def verification_arg(args, nom_pers):
     if args.s in nom_pers:
         for pers in range(len(nom_pers)):
             if nom_pers[pers] == args.s:

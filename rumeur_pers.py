@@ -68,5 +68,3 @@ def rumeur_pers(nom_pers, reseau):
         else:
             val_rumeur[pers] = "Ne connait pas la rumeur"
     return val_rumeur
-
-print(rumeur_pers(nom_pers))
