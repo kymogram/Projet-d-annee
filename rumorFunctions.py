@@ -52,19 +52,16 @@ def str_bin(bin_rumor):
         str_bin += str(elem)
     return str_bin
   
-def bit_flip(args):
-    dec_rumor = args.r
-    bin_rumor = convert_dec(dec_rumor)
+def bit_flip(v):
+    dec_rumor = v
+    bin_rumor = list(to_bin_str(dec_rumor))
     alea_bit_flip = randint(0,7)
     
     if bin_rumor[alea_bit_flip] == '0':
-        bin_rumor[alea_bit_flip] = 1
+        bin_rumor[alea_bit_flip] = '1'
     else:
-        bin_rumor[alea_bit_flip] = 0
-    bin_rumor = str_bin(bin_rumor)
-    
-    args.r = convert_bin(bin_rumor)
-    return bin_rumor
+        bin_rumor[alea_bit_flip] = '0'
+    return convert_bin("".join(bin_rumor))
     
 def rumeur_pers(nom_pers, dec_rumor):
     val_rumeur = [[] for i in range(len(nom_pers))]
