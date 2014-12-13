@@ -32,28 +32,16 @@ def incremental(v):
     return (v + choice([1, -1]))%256
     
 def convert_bin(bin_rumor):
-    dec_rumor = int(bin_rumor, 2)
-    return dec_rumor
-  
-def str_bin(bin_rumor):
-    str_bin = ""
-    for elem in bin_rumor:
-        str_bin += str(elem)
-    return str_bin
+    return int(bin_rumor, 2)
   
 def bit_flip(v):
-    dec_rumor = v
-    bin_rumor = list(to_bin_str(dec_rumor))
+    bin_rumor = list(to_bin_str(v))
     alea_bit_flip = randint(0,7)
-    
     if bin_rumor[alea_bit_flip] == '0':
         bin_rumor[alea_bit_flip] = '1'
     else:
         bin_rumor[alea_bit_flip] = '0'
     return convert_bin("".join(bin_rumor))
-    
-def rumeur_pers(nom_pers, dec_rumor):
-    val_rumeur = [[] for i in range(len(nom_pers))]
     
 def variable_arg():
     #Variable pour '-s'
