@@ -9,7 +9,6 @@ parser.add_argument("-u", type=str,
 args = parser.parse_args()
 
 nom_pers, reseau = rumorFunctionsPart2.loadNetwork("name.txt")
-pers_info = [False for pers in range(len(nom_pers))]
 
 def si_connait_pas(pers_info, args, val_rumeur, alea):
     if args.m == "none":
