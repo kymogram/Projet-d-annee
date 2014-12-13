@@ -179,3 +179,4 @@ def update(reseau, pers_info):
                 pers_connait += 1
                 pers_info[alea] = True
     return pers_connait
+

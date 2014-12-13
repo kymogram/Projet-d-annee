@@ -1,9 +1,11 @@
-import rumorFunctionsPart2
+import rumorFunctions
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-u", type=str, default = "stable", help = "Règle de " + \
-                    "mise à jour lorsqu'une personne apprend une nouvelle " + \
-                    "version de la rumeur (choix : stable, rewrite, mixture)")
+parser.add_argument("-u", type=str,
+                    default="stable",
+                    help = "Règle de mise à jour lorsqu'une personne apprend " \
+                           "une nouvelle version de la rumeur " \
+                           "(choix : stable, rewrite, mixture)")
 args = parser.parse_args()
 
 nom_pers, reseau = rumorFunctionsPart2.loadNetwork("name.txt")
@@ -66,6 +68,5 @@ def rumeur_pers(nom_pers, reseau):
         else:
             val_rumeur[pers] = "Ne connait pas la rumeur"
     return val_rumeur
-    
 
 print(rumeur_pers(nom_pers))
