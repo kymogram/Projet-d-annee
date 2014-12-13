@@ -95,11 +95,9 @@ def variable_arg():
         nbr_simu += 1
     return alea_indice, alea_init, nbr_simu
     
-def verification_arg(args, nom_pers):
+def verification_arg(args, nom_pers, pers_info):
     if args.s in nom_pers:
-        for pers in range(len(nom_pers)):
-            if nom_pers[pers] == args.s:
-                pers_info[pers] = True
+        pers_info[nom_pers.index(args.s)] = True
     else:
         raise ValueError("Cette personne n'existe pas dans votre réseau")
             
@@ -126,7 +124,7 @@ def verification_arg(args, nom_pers):
     else:
         print("\nSi vous ne savez pas quoi faire, demandez l'aide avec '-h'\n")
         raise ValueError("le paramètre choisi est incorrect")
-    return args.r, args.r, args.p, args.m
+    return args.r, args.p, args.m
 
 def fichier_printer(nom_fichier):
     fichier = open(nom_fichier)
