@@ -55,8 +55,6 @@ def main():
     except Exception as e:
         print(e)
         return
-
-    print(args.r)
     
     print("Etat initial : \n")
     printState(nom_pers, pers_info)

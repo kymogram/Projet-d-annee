@@ -86,7 +86,7 @@ def variable_arg():
     
 def verification_arg(args, nom_pers, pers_info):
     if args.s in nom_pers:
-        pers_info[nom_pers.index(args.s)] = True
+        pers_info[nom_pers.index(args.s)] = args.r
     else:
         raise ValueError("Cette personne n'existe pas dans votre réseau")
             
