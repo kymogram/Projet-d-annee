@@ -41,14 +41,6 @@ def incremental(args):
         if incr_decr == 1:
             dec_rumor += 1
     return dec_rumor
-
-def convert_dec(dec_rumor):
-    str_bin = ""
-    bin_rumor = list(bin(dec_rumor)[2:])
-    while len(bin_rumor) < 8:
-        add_zero = ['0']
-        bin_rumor = add_zero + bin_rumor[:]
-    return bin_rumor
     
 def convert_bin(bin_rumor):
     dec_rumor = int(bin_rumor, 2)
