@@ -111,12 +111,6 @@ def verification_arg(args, nom_pers, pers_info):
 def to_bin_str(n):
     return "{0:08b}".format(n)
 
-def fichier_printer(nom_fichier):
-    fichier = open(nom_fichier)
-    document = "".join(fichier.readlines())
-    fichier.close()
-    return document
-
 def printState(nom_pers, pers_info):
     #J'initialise à 20 le nombre d'espace qu'il faut mettre après le nom
     espace_ecart = 20
