@@ -29,7 +29,7 @@ def main():
                         default=-1,
                         help="Nombre d'étapes dans la simulation")
     parser.add_argument("-d",
-                        help = "Si cette option est choisie, chaque personne " \
+                        help="Si cette option est choisie, chaque personne " \
                                "connaissant la rumeur la transmet à un ami " \
                                "choisi aléatoirement parmi ceux ne " \
                                "connaissant pas déjà la rumeur", \
@@ -37,7 +37,7 @@ def main():
     parser.add_argument("-m",
                         type=str,
                         default="none",
-                        help = "Type de modification éventuelle de la rumeur " \
+                        help="Type de modification éventuelle de la rumeur " \
                                "lorsqu'elle est racontée (choix : " \
                                "incremental, bitflip, none)")
     args = parser.parse_args()
