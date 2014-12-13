@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
     
 def loadNetwork(nom_fichier):
     nom_pers = []
@@ -47,7 +47,7 @@ def verification_arg(args, nom_pers, pers_info):
     if args.s in nom_pers:
         pers_info[nom_pers.index(args.s)] = args.r
     else:
-        raise ValueError("Cette personne n'existe pas dans votre réseau")
+        raise ValueError(args.s + " n'existe pas dans votre réseau")
             
     if args.r < 0:
         print("\nSoyez raisonnable...\n")
@@ -90,20 +90,24 @@ def update(reseau, pers_info, args):
     for pers in range(len(pers_info)):
         #Si la personne connait la rumeur, il peut la transmettre
         if pers_info[pers]:
-            alea = randint(0,len(pers_info)-1)
+            alea = randint(0, len(pers_info)-1)
             if not args.d:
-                while pers == alea or not reseau[alea][pers]:
-                    alea = randint(0, len(pers_info)-1)
-                if not pers_info[alea]:
-                    pers_connait += 1
-                pers_info[alea] = True
+                #crée une liste avec les amis de pers
+                amis = [i for i in range(len(pers_info)) if reseau[pers][i]]
+                if len(amis) != 0:
+                    apprenti = choice(amis)
+                    if not pers_info[apprenti]:
+                        pers_connait += 1
+                    pers_info[apprenti] = True
             #Si l'option don't tell again a été choisi, seules les personnes ne
             #Connaissant pas la rumeur peuvent recevoir la rumeur
             else:
-                while pers == alea or not reseau[alea][pers] \
-                                   or not pers_info[alea]:
-                    alea = randint(0, len(pers_info)-1)
-                pers_connait += 1
-                pers_info[alea] = True
+                #crée une liste avec les amis de pers qui ne connaissent
+                #pas la rumeur
+                amis = [i for i in range(len(pers_info)) \
+                                        if reseau[pers][i] and not pers_info[i]]
+                if len(amis) != 0:
+                    pers_connait += 1
+                    pers_info[choice(amis)] = True
     return pers_connait
 
