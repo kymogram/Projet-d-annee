@@ -28,19 +28,8 @@ def loadNetwork(nom_fichier):
                         reseau[i][k] = nom_pers[k] in ami
     return nom_pers, reseau
     
-def incremental(args):
-    dec_rumor = args.r
-    incr_decr = randint(0,1)
-    if dec_rumor == 255:
-        dec_rumor -= 1
-    elif dec_rumor == 0:
-        dec_rumor += 1
-    else:
-        if incr_decr == 0:
-            dec_rumor -= 1
-        if incr_decr == 1:
-            dec_rumor += 1
-    return dec_rumor
+def incremental(v):
+    return (v + choice([1, -1]))%256
     
 def convert_bin(bin_rumor):
     dec_rumor = int(bin_rumor, 2)
@@ -135,12 +124,11 @@ def update(reseau, pers_info, args):
                 if not pers_info[alea]:
                     pers_connait += 1
                 pers_info[alea] = True
-                
-            #Si l'option don't tell again a été choisi, seul les personne ne
+            #Si l'option don't tell again a été choisi, seules les personnes ne
             #Connaissant pas la rumeur peuvent recevoir la rumeur
             else:
                 while pers == alea or not reseau[alea][pers] \
-                                        or not pers_info[alea]:
+                                   or not pers_info[alea]:
                     alea = randint(0, len(pers_info)-1)
                 pers_connait += 1
                 pers_info[alea] = True
