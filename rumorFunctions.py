@@ -138,9 +138,9 @@ def fichier_printer(nom_fichier):
 def printState(nom_pers, pers_info):
     #J'initialise à 20 le nombre d'espace qu'il faut mettre après le nom
     espace_ecart = 20
-    print("Nom                      BIN\tDEC")
+    print("Nom                      BIN    DEC")
     for pers in range(len(nom_pers)):
-        print(str(nom_pers[pers]) + ' '*(espace_ecart-len(nom_pers[pers])),
+        print(str(nom_pers[pers]) + ' ' * (espace_ecart-len(nom_pers[pers])),
               end='')
         #Verifie si la personne connait la rumeur
         if pers_info[pers]:

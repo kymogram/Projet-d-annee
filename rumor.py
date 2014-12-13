@@ -41,24 +41,16 @@ def main():
                                "lorsqu'elle est racontée (choix : " \
                                "incremental, bitflip, none)")
     args = parser.parse_args()
-    
+
     nom_pers, reseau = loadNetwork(args.nom_fichier)
+    pers_info = [False for pers in range(len(nom_pers))]
     #si args.s a sa valeur par défaut
     if args.s == "NULL":
         #on choisit une personne de la liste au hasard
         args.s = choice(nom_pers)
-    
+
     #On vérifie si tout est correcte
-    args.s, args.r, args.p = verification_arg(args, nom_pers)
-
-    #On excécute inputData en l'associant à des valeurs
-    nom_pers, reseau = loadNetwork()
-
-    #Initialisation des personnes informées(à la base, personne ne la connaît)
-    pers_info = [False for pers in range(len(nom_pers))]
-
-    #On excécute inputData en l'associant à des valeurs
-    nom_pers, reseau = inputData()
+    args.s, args.r, args.p = verification_arg(args, nom_pers, pers_info)
     
     print("Etat initial : \n")
     printState(nom_pers, pers_info)
@@ -66,7 +58,7 @@ def main():
     #On répète le nombre de fois qu'on nous demande en précisant l'étape
     #A laquelle on se trouve et le nombre de personnes qui ont
     #Apprises la rumeur
-    for simulation in range(1, nbr_simu):
+    for simulation in range(1, args.t):
         print("Etape " + str(simulation) + \
               " (" + str(update(reseau, pers_info)) + \
               " personnes l'ont apprise) : ")
