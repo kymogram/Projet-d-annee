@@ -25,10 +25,7 @@ def loadNetwork(nom_fichier):
             if ami[j] in nom_pers:
                 for k in range(nbr_pers_res):
                     if i != k:
-                        if nom_pers[k] in ami:
-                            reseau[i][k] = True
-                        else:
-                            reseau[i][k] = False
+                        reseau[i][k] = nom_pers[k] in ami
     return nom_pers, reseau
     
 def incremental(args):
