@@ -59,9 +59,9 @@ def main():
     #A laquelle on se trouve et le nombre de personnes qui ont
     #Apprises la rumeur
     for simulation in range(1, args.t):
-        print("Etape " + str(simulation) + \
-              " (" + str(update(reseau, pers_info)) + \
-              " personnes l'ont apprise) : ")
+        print("\nEtape " + str(simulation) + \
+              " (" + str(update(reseau, pers_info, args)) + \
+              " personne(s) l'ont apprise) : ")
         printState(nom_pers, pers_info)
 
 #J'importe rumorFunctions dans rumor

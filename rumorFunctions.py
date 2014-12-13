@@ -128,7 +128,7 @@ def fichier_printer(nom_fichier):
     document = "".join(fichier.readlines())
     fichier.close()
     return document
-    
+
 def printState(nom_pers, pers_info):
     #J'initialise à 20 le nombre d'espace qu'il faut mettre après le nom
     espace_ecart = 20
@@ -142,7 +142,7 @@ def printState(nom_pers, pers_info):
         else:
             print("ne connaît pas la rumeur")
 
-def update(reseau, pers_info):
+def update(reseau, pers_info, args):
     #Variable qui va compter combien de gens vont apprendre la rumeur à chaque
     #Appel à la fonction
     pers_connait = 0
