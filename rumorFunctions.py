@@ -140,15 +140,13 @@ def printState(nom_pers, pers_info):
     espace_ecart = 20
     print("Nom                      BIN\tDEC")
     for pers in range(len(nom_pers)):
+        print(str(nom_pers[pers]) + ' '*(espace_ecart-len(nom_pers[pers])),
+              end='')
         #Verifie si la personne connait la rumeur
         if pers_info[pers]:
-            print(str(nom_pers[pers]) + \
-                  ' '*(espace_ecart-len(nom_pers[pers])) + \
-                  to_bin_str(pers_info[pers]))
+            print(to_bin_str(pers_info[pers]))
         else:
-            print(str(nom_pers[pers]) + \
-                  ' '*(espace_ecart-len(nom_pers[pers])) + \
-                  "ne connaît pas la rumeur")
+            print("ne connaît pas la rumeur")
 
 def update(reseau, pers_info):
     #Variable qui va compter combien de gens vont apprendre la rumeur à chaque
