@@ -50,7 +50,13 @@ def main():
         args.s = choice(nom_pers)
 
     #On vérifie si tout est correcte
-    args.s, args.r, args.p = verification_arg(args, nom_pers, pers_info)
+    try:
+        verification_arg(args, nom_pers, pers_info)
+    except Exception as e:
+        print(e)
+        return
+
+    print(args.r)
     
     print("Etat initial : \n")
     printState(nom_pers, pers_info)

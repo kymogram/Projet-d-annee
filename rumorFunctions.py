@@ -107,7 +107,6 @@ def verification_arg(args, nom_pers, pers_info):
     if args.m not in ["incremental", "bitflip", "none"]:
         print("\nSi vous ne savez pas quoi faire, demandez l'aide avec '-h'\n")
         raise ValueError("le paramètre choisi est incorrect")
-    return args.r, args.p, args.m
 
 def to_bin_str(n):
     return "{0:08b}".format(n)
