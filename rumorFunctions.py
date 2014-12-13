@@ -126,30 +126,26 @@ def verification_arg(args, nom_pers, pers_info):
         raise ValueError("le paramètre choisi est incorrect")
     return args.r, args.p, args.m
 
+def to_bin_str(n):
+    return "{0:08b}".format(n)
+
 def fichier_printer(nom_fichier):
     fichier = open(nom_fichier)
-    ligne = fichier.readlines()
-    document = ""
-    for elem in ligne:
-        document += str(elem)
+    document = "".join(fichier.readlines())
+    fichier.close()
     return document
     
 def printState(nom_pers, pers_info):
     #J'initialise à 20 le nombre d'espace qu'il faut mettre après le nom
     espace_ecart = 20
-    print("le réseau est le suivant :\n" + fichier_printer(nom_fichier) + "\n")
-    ini_rumor = input("Personne initiant la rumeur: ")
-    #Petite vérification
-    while ini_rumor != ini_rumor.isalpha():
-        ini_rumor = input("Personne initiant la rumeur: ")
-    dec_rumor = randint(0,255)
-    print("Valeur de la rumeur initiale: " + str(dec_rumor) + \
-          "\nNom\t\tBIN\tDEC")
+    print("Nom\t\tBIN\tDEC")
     for pers in range(len(nom_pers)):
         espace_ecart -= len(nom_pers[pers])
         #Verifie si la personne connait la rumeur
         if pers_info[pers]:
-            print(str(nom_pers[pers]) + espace_ecart + bin_rumor(dec_rumor))
+            print(str(nom_pers[pers]) + \
+                  ' '*(espace_ecart-len(nom_pers[pers])) + \
+                  to_bin_str(dec_rumor))
         else:
             print(str(nom_pers[pers]) + " ne connaît pas la rumeur")
 
