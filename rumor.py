@@ -6,9 +6,6 @@ def main():
     #Grâce à ArgParse, je vais regarder chaque entré de l'utilisateur, et lui
     #Envoyer une erreur si son(ses) paramètre(s) est(sont) incorrecte(s)
 
-    #On importe les variables initiées dans rumorFunctions
-    #alea_indice, alea_init, nbr_simu = variable_arg()
-
     parser = argparse.ArgumentParser()
     parser.add_argument("nom_fichier",
                         help="chemin vers le fichier contenant le reseau")
