@@ -1,5 +1,9 @@
-from random import randint, choice
-    
+from random import randint, choice, random
+
+def pourcentage(proportion):
+    alea = random()
+    return alea < proportion
+
 def loadNetwork(nom_fichier):
     nom_pers = []
     fichier = open(nom_fichier)
@@ -79,7 +83,7 @@ def printState(nom_pers, pers_info):
               end='')
         #Verifie si la personne connait la rumeur
         if pers_info[pers]:
-            print(to_bin_str(pers_info[pers]))
+            print(to_bin_str(pers_info[pers]) + "    " + str(pers_info[pers]))
         else:
             print("ne connaît pas la rumeur")
 
@@ -92,18 +96,25 @@ def update(reseau, pers_info, args):
         if pers_info[pers]:
             if not args.d:
                 #crée une liste avec les amis de pers
-                amis = [i for i in range(len(pers_info)) if reseau[pers][i]]
+                amis = [i for i in range(len(pers_info)) if reseau[pers][i] \
+                                                         and i != pers]
             #Si l'option don't tell again a été choisi, seules les personnes ne
             #Connaissant pas la rumeur peuvent recevoir la rumeur
             else:
                 #crée une liste avec les amis de pers qui ne connaissent
                 #pas la rumeur
                 amis = [i for i in range(len(pers_info)) \
-                                        if reseau[pers][i] and not pers_info[i]]
+                          if reseau[pers][i] and not pers_info[i] and i != pers]
             if len(amis) != 0:
                 apprenti = choice(amis)
                 if not pers_info[apprenti]:
                     pers_connait += 1
-                pers_info[apprenti] = True
+                rumeur_apprise = pers_info[pers]
+                if pourcentage(args.p)
+                    if args.m == "bitflip":
+                        rumeur_apprise = bit_flip(rumeur_apprise)
+                    elif args.m == "incremental":
+                        rumeur_apprise = incremental(rumeur_apprise)
+                pers_info[apprenti] = rumeur_apprise
     return pers_connait
 
