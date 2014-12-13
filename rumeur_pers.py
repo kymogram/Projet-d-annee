@@ -1,15 +1,5 @@
 import rumorFunctions
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-u", type=str,
-                    default="stable",
-                    help = "Règle de mise à jour lorsqu'une personne apprend " \
-                           "une nouvelle version de la rumeur " \
-                           "(choix : stable, rewrite, mixture)")
-args = parser.parse_args()
-
-nom_pers, reseau = rumorFunctionsPart2.loadNetwork("name.txt")
-
 def si_connait_pas(pers_info, args, val_rumeur, alea):
     if args.m == "none":
         val_rumeur[alea] = args.r

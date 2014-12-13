@@ -115,13 +115,7 @@ def verification_arg(args, nom_pers, pers_info):
         print("\nVeuillez mettre une valeur ne dépassant pas 1\n")
         raise ValueError("Votre valeur est trop grande")
         
-    if args.m == "incremental":
-        args.m = incremental(args)
-    elif args.m == "bitflip":
-        args.m = bit_flip(args)
-    elif args.m == "none":
-        args.m = "none"
-    else:
+    if args.m not in ["incremental", "bitflip", "none"]:
         print("\nSi vous ne savez pas quoi faire, demandez l'aide avec '-h'\n")
         raise ValueError("le paramètre choisi est incorrect")
     return args.r, args.p, args.m
