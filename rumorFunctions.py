@@ -90,7 +90,6 @@ def update(reseau, pers_info, args):
     for pers in range(len(pers_info)):
         #Si la personne connait la rumeur, il peut la transmettre
         if pers_info[pers]:
-            alea = randint(0, len(pers_info)-1)
             if not args.d:
                 #crée une liste avec les amis de pers
                 amis = [i for i in range(len(pers_info)) if reseau[pers][i]]
