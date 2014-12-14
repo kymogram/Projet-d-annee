@@ -66,23 +66,22 @@ def variable_arg():
     return alea_indice, alea_init, nbr_simu
     
 def verification_arg(args, nom_pers, pers_info):
-    if args.s in nom_pers:
-        pers_info[nom_pers.index(args.s)] = args.r
-    else:
-        raise ValueError(args.s + " n'existe pas dans votre réseau")
     if args.r < 0:
         print("\nSoyez raisonnable...\n")
         raise ValueError("Aucun nombre négatif n'est toléré")
     elif args.r > 255:
         print("\nVeuillez mettre une valeur ne dépassant pas 255\n")
         raise ValueError("Votre valeur est trop grande")
+    if args.s in nom_pers:
+        pers_info[nom_pers.index(args.s)] = args.r
+    else:
+        raise ValueError(args.s + " n'existe pas dans votre réseau")
     if args.p < 0:
         print("\nSoyez raisonnable...\n")
         raise ValueError("Aucun nombre négatif n'est toleré")
     elif args.p > 1:
         print("\nVeuillez mettre une valeur ne dépassant pas 1\n")
         raise ValueError("Votre valeur est trop grande")
-        
     if args.m not in ["incremental", "bitflip", "none"] or \
        args.u not in ["stable", "rewrite", "mixture"]:
         print("\nSi vous ne savez pas quoi faire, demandez l'aide avec '-h'\n")
