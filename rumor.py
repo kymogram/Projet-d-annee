@@ -51,6 +51,10 @@ def main():
     if args.s == "NULL":
         #on choisit une personne de la liste au hasard
         args.s = choice(nom_pers)
+    with open(args.nom_fichier) as fichier_reseau:
+        print("Ce réseau a été chargé :\n" + \
+              "".join(fichier_reseau.readlines()) + \
+              "\n\n")
 
     #On vérifie si tout est correcte
     try:
