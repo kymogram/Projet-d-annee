@@ -70,12 +70,17 @@ def main():
     #A laquelle on se trouve et le nombre de personnes qui ont
     #Apprises la rumeur
     simulation = 0
-    while simulation < args.t:
+    keep_looping = True
+    while keep_looping:
         print("\nEtape " + str(simulation) + \
               " (" + str(update(reseau, pers_info, args)) + \
               " personne(s) l'ont apprise) : ")
         printState(nom_pers, pers_info)
-        simulation += 1
+        if args.t == -1:
+            keep_looping = pers_info.count(False) != 0
+        else:
+            simulation += 1
+            keep_looping = simulation < args.t
 
 #J'importe rumorFunctions dans rumor
 if __name__ == "__main__":
