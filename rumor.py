@@ -41,8 +41,8 @@ def main():
                         type=str,
                         default="stable",
                         help="Règle de mise à jour lorsqu'une personne " \
-                        "apprend une nouvelle version de la rumeur (choix : " \
-                        "stable, rewrite, mixture)")
+                             "apprend une nouvelle version de la rumeur " \
+                             "stable, rewrite, mixture)")
     args = parser.parse_args()
 
     nom_pers, reseau = loadNetwork(args.nom_fichier)
