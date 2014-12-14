@@ -138,13 +138,3 @@ def fichier_printer(nom_fichier):
     fichier.close()
     return document
 
-def si_connait_pas(pers_info, args, val_rumeur, alea, rumeur_apprise):
-    if args.m == "none":
-        val_rumeur[alea] = args.r
-    elif args.m == "incremental":
-        val_rumeur[alea] = incremental(args)
-    elif args.m == "bitflip":
-        val_rumeur[alea] = convert_bin(bit_flip(args))
-    pers_info[alea] = True
-    rumeur_apprise += 1
-    return val_rumeur, pers_info, rumeur_apprise
