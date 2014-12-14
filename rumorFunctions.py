@@ -159,10 +159,3 @@ def update(reseau, pers_info, args):
                 liste_apprentissages[apprenti] = rumeur_apprise
     pers_info[:] = liste_apprentissages[:]
     return pers_connait
-
-def fichier_printer(nom_fichier):
-    fichier = open(nom_fichier)
-    document = " ".join(fichier.readlines())
-    fichier.close()
-    return document
-
