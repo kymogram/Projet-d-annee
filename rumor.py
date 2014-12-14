@@ -69,11 +69,13 @@ def main():
     #On répète le nombre de fois qu'on nous demande en précisant l'étape
     #A laquelle on se trouve et le nombre de personnes qui ont
     #Apprises la rumeur
-    for simulation in range(1, args.t):
+    simulation = 0
+    while simulation < args.t:
         print("\nEtape " + str(simulation) + \
               " (" + str(update(reseau, pers_info, args)) + \
               " personne(s) l'ont apprise) : ")
         printState(nom_pers, pers_info)
+        simulation += 1
 
 #J'importe rumorFunctions dans rumor
 if __name__ == "__main__":
