@@ -41,8 +41,8 @@ def main():
                         type=str,
                         default="stable",
                         help="Règle de mise à jour lorsqu'une personne " \
-                        "apprend une nouvelle version de la rumeur (choix : " \
-                        "stable, rewrite, mixture)")
+                             "apprend une nouvelle version de la rumeur " \
+                             "stable, rewrite, mixture)")
     args = parser.parse_args()
 
     nom_pers, reseau = loadNetwork(args.nom_fichier)
@@ -51,6 +51,10 @@ def main():
     if args.s == "NULL":
         #on choisit une personne de la liste au hasard
         args.s = choice(nom_pers)
+    with open(args.nom_fichier) as fichier_reseau:
+        print("Ce réseau a été chargé :\n" + \
+              "".join(fichier_reseau.readlines()) + \
+              "\n\n")
 
     #On vérifie si tout est correcte
     try:
@@ -65,11 +69,18 @@ def main():
     #On répète le nombre de fois qu'on nous demande en précisant l'étape
     #A laquelle on se trouve et le nombre de personnes qui ont
     #Apprises la rumeur
-    for simulation in range(1, args.t):
+    simulation = 0
+    keep_looping = True
+    while keep_looping:
         print("\nEtape " + str(simulation) + \
               " (" + str(update(reseau, pers_info, args)) + \
               " personne(s) l'ont apprise) : ")
         printState(nom_pers, pers_info)
+        simulation += 1
+        if args.t == -1:
+            keep_looping = pers_info.count(False) != 0
+        else:
+            keep_looping = simulation < args.t
 
 #J'importe rumorFunctions dans rumor
 if __name__ == "__main__":

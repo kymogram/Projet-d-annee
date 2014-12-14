@@ -66,23 +66,22 @@ def variable_arg():
     return alea_indice, alea_init, nbr_simu
     
 def verification_arg(args, nom_pers, pers_info):
-    if args.s in nom_pers:
-        pers_info[nom_pers.index(args.s)] = args.r
-    else:
-        raise ValueError(args.r + "n'existe pas dans votre réseau")
     if args.r < 0:
         print("\nSoyez raisonnable...\n")
         raise ValueError("Aucun nombre négatif n'est toléré")
     elif args.r > 255:
         print("\nVeuillez mettre une valeur ne dépassant pas 255\n")
         raise ValueError("Votre valeur est trop grande")
+    if args.s in nom_pers:
+        pers_info[nom_pers.index(args.s)] = args.r
+    else:
+        raise ValueError(args.s + " n'existe pas dans votre réseau")
     if args.p < 0:
         print("\nSoyez raisonnable...\n")
         raise ValueError("Aucun nombre négatif n'est toleré")
     elif args.p > 1:
         print("\nVeuillez mettre une valeur ne dépassant pas 1\n")
         raise ValueError("Votre valeur est trop grande")
-        
     if args.m not in ["incremental", "bitflip", "none"] or \
        args.u not in ["stable", "rewrite", "mixture"]:
         print("\nSi vous ne savez pas quoi faire, demandez l'aide avec '-h'\n")
@@ -101,10 +100,31 @@ def printState(nom_pers, pers_info):
         else:
             print("ne connaît pas la rumeur")
 
+def mixture(a, b, probabilite_a=0.1):
+    """
+        retourne un mélange bit à bit de a et b en sachant que si un bit
+        diffère, il y a une probabilité probabilite_a que ce soit le bit de a
+        choisi et une probabilité de (1 - probabilite_a) que le bit de b
+        soit choisi
+    """
+    liste_bin_a = list(to_str_bin(a))
+    liste_bin_b = list(to_str_bin(b))
+    res = []
+    for i in range(len(liste_bin_a)):
+        if liste_bin_a[i] == liste_bin_b[i]:
+            res.append(liste_bin_a[i])
+        else:
+            if pourcentage(probabilite_a):
+                res.append(liste_bin_a[i])
+            else:
+                res.append(liste_bin_b[i])
+    return int("".join(res), 2)
+
 def update(reseau, pers_info, args):
     #Variable qui va compter combien de gens vont apprendre la rumeur à chaque
     #Appel à la fonction
     pers_connait = 0
+    liste_apprentissages = pers_info[:]
     for pers in range(len(pers_info)):
         #Si la personne connait la rumeur, il peut la transmettre
         if pers_info[pers]:
@@ -121,7 +141,7 @@ def update(reseau, pers_info, args):
                           if reseau[pers][i] and not pers_info[i] and i != pers]
             if len(amis) != 0:
                 apprenti = choice(amis)
-                if not pers_info[apprenti]:
+                if not liste_apprentissages[apprenti]:
                     pers_connait += 1
                 rumeur_apprise = pers_info[pers]
                 if pourcentage(args.p):
@@ -129,22 +149,13 @@ def update(reseau, pers_info, args):
                         rumeur_apprise = bit_flip(rumeur_apprise)
                     elif args.m == "incremental":
                         rumeur_apprise = incremental(rumeur_apprise)
-                pers_info[apprenti] = rumeur_apprise
+                #si la personne la connait déjà
+                if liste_apprentissages[apprenti]:
+                    if args.u == "stable":
+                        rumeur_apprise = liste_apprentissages[apprenti]
+                    elif args.u == "mixture":
+                        rumeur_apprise = mixture(rumeur_apprise,
+                                                 liste_apprentissages[apprenti])
+                liste_apprentissages[apprenti] = rumeur_apprise
+    pers_info[:] = liste_apprentissages[:]
     return pers_connait
-
-def fichier_printer(nom_fichier):
-    fichier = open(nom_fichier)
-    document = " ".join(fichier.readlines())
-    fichier.close()
-    return document
-
-def si_connait_pas(pers_info, args, val_rumeur, alea, rumeur_apprise):
-    if args.m == "none":
-        val_rumeur[alea] = args.r
-    elif args.m == "incremental":
-        val_rumeur[alea] = incremental(args)
-    elif args.m == "bitflip":
-        val_rumeur[alea] = convert_bin(bit_flip(args))
-    pers_info[alea] = True
-    rumeur_apprise += 1
-    return val_rumeur, pers_info, rumeur_apprise
