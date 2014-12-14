@@ -29,7 +29,7 @@ def main():
                         help="Si cette option est choisie, chaque personne " \
                              "connaissant la rumeur la transmet à un ami " \
                              "choisi aléatoirement parmi ceux ne " \
-                             "connaissant pas déjà la rumeur", \
+                             "connaissant pas déjà la rumeur",
                         action="store_true")
     parser.add_argument("-m",
                         type=str,
