@@ -1,0 +1,6 @@
+Alice : Bob, David, Eve
+Bob :  Alice, Charlie, Francis
+Charlie : Bob, Eve, Francis
+David : Alice
+Eve : Alice, Charlie
+Francis : Bob, Charlie
