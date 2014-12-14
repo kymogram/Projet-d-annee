@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
     
 def loadNetwork(nom_fichier):
     nom_pers = []
@@ -25,25 +25,11 @@ def loadNetwork(nom_fichier):
             if ami[j] in nom_pers:
                 for k in range(nbr_pers_res):
                     if i != k:
-                        if nom_pers[k] in ami:
-                            reseau[i][k] = True
-                        else:
-                            reseau[i][k] = False
+                        reseau[i][k] = nom_pers[k] in ami
     return nom_pers, reseau
     
-def incremental(args):
-    dec_rumor = args.r
-    incr_decr = randint(0,1)
-    if dec_rumor == 255:
-        dec_rumor -= 1
-    elif dec_rumor == 0:
-        dec_rumor += 1
-    else:
-        if incr_decr == 0:
-            dec_rumor -= 1
-        if incr_decr == 1:
-            dec_rumor += 1
-    return dec_rumor
+def incremental(v):
+    return (v + choice([1, -1]))%256
 
 def convert_dec(dec_rumor):
     str_bin = ""
@@ -54,33 +40,19 @@ def convert_dec(dec_rumor):
     return bin_rumor
     
 def convert_bin(bin_rumor):
-    dec_rumor = int(bin_rumor, 2)
-    return dec_rumor
-
-#J'utilise la fonction str_bin pour ne pas avoir une liste contenant chaque bit
-#mais pour avoir une string de ces bits réunis
-def str_bin(bin_rumor):
-    str_bin = ""
-    for elem in bin_rumor:
-        str_bin += str(elem)
-    return str_bin
+    return int(bin_rumor, 2)
 
 def to_str_bin(n):
     return "{0:08b}".format(n)
 
-def bit_flip(args):
-    dec_rumor = args.r
-    bin_rumor = convert_dec(dec_rumor)
+def bit_flip(v):
+    bin_rumor = list(to_str_bin(v))
     alea_bit_flip = randint(0,7)
-
     if bin_rumor[alea_bit_flip] == '0':
-        bin_rumor[alea_bit_flip] = 1
+        bin_rumor[alea_bit_flip] = '1'
     else:
-        bin_rumor[alea_bit_flip] = 0
-    bin_rumor = str_bin(bin_rumor)
-
-    args.r = convert_bin(bin_rumor)
-    return bin_rumor
+        bin_rumor[alea_bit_flip] = '0'
+    return convert_bin("".join(bin_rumor))
 
 def variable_arg():
     #Variable pour '-s'
@@ -97,11 +69,11 @@ def variable_arg():
         nbr_simu += 1
     return alea_indice, alea_init, nbr_simu
     
-def verification_arg(args, pers_info):
+def verification_arg(args, nom_pers, pers_info):
     if args.s in nom_pers:
         pers_info[nom_pers.index(args.s)] = True
     else:
-        raise ValueError("Cette personne n'existe pas dans votre réseau")
+        raise ValueError(args.r + "n'existe pas dans votre réseau")
 
     if args.r < 0:
         print("\nSoyez raisonnable...\n")
@@ -124,8 +96,6 @@ def verification_arg(args, pers_info):
                         args.u not in ["stable", "rewrite", "mixture"]:
         print("\nSi vous ne savez pas quoi faire, demandez l'aide avec '-h'\n")
         raise ValueError("le paramètre choisi est incorrect")
-
-    return args.s, args.r, args.t, args.p, args.m, args.u
 
 def fichier_printer(nom_fichier):
     fichier = open(nom_fichier)
@@ -167,6 +137,7 @@ def update(pers_info, reseau, args):
     val_rumeur = [[] for i in range(len(pers_info))]
     for pers in range(len(pers_info)):
         if pers_info[pers]:
+            #amis = [i for i in range(len(pers_info) if reseau[pers][i]]
             alea = randint(0,len(pers_info)-1)
             #Tant que c'est lui-même ou quelqu'un avec qui il n'est pas ami
             #La valeur aléatoire change pour qu'il puisse la transmettre à

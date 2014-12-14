@@ -65,8 +65,11 @@ def main():
         args.t = nbr_simu
 
     #On vérifie si tout est correcte
-    args.s, args.r, args.t  args.p, args.m, args.u = \
-                                                verification_arg(args, nom_pers)
+    try:
+        verification_arg(args, nom_pers)
+    except Exception as e:
+        print(e)
+        return
     #On excécute loadNetwork en l'associant à des valeurs
     nom_pers, reseau = loadNetwork()
 
