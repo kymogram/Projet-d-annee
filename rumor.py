@@ -76,10 +76,10 @@ def main():
               " (" + str(update(reseau, pers_info, args)) + \
               " personne(s) l'ont apprise) : ")
         printState(nom_pers, pers_info)
+        simulation += 1
         if args.t == -1:
             keep_looping = pers_info.count(False) != 0
         else:
-            simulation += 1
             keep_looping = simulation < args.t
 
 #J'importe rumorFunctions dans rumor

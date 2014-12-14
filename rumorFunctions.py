@@ -104,6 +104,7 @@ def update(reseau, pers_info, args):
     #Variable qui va compter combien de gens vont apprendre la rumeur à chaque
     #Appel à la fonction
     pers_connait = 0
+    liste_apprentissages = pers_info[:]
     for pers in range(len(pers_info)):
         #Si la personne connait la rumeur, il peut la transmettre
         if pers_info[pers]:
@@ -120,7 +121,7 @@ def update(reseau, pers_info, args):
                           if reseau[pers][i] and not pers_info[i] and i != pers]
             if len(amis) != 0:
                 apprenti = choice(amis)
-                if not pers_info[apprenti]:
+                if not liste_apprentissages[apprenti]:
                     pers_connait += 1
                 rumeur_apprise = pers_info[pers]
                 if pourcentage(args.p):
@@ -128,7 +129,8 @@ def update(reseau, pers_info, args):
                         rumeur_apprise = bit_flip(rumeur_apprise)
                     elif args.m == "incremental":
                         rumeur_apprise = incremental(rumeur_apprise)
-                pers_info[apprenti] = rumeur_apprise
+                liste_apprentissages[apprenti] = rumeur_apprise
+    pers_info[:] = liste_apprentissages[:]
     return pers_connait
 
 def fichier_printer(nom_fichier):
