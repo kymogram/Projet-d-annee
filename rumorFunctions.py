@@ -100,6 +100,26 @@ def printState(nom_pers, pers_info):
         else:
             print("ne connaît pas la rumeur")
 
+def mixture(a, b, probabilite_a=0.1):
+    """
+        retourne un mélange bit à bit de a et b en sachant que si un bit
+        diffère, il y a une probabilité probabilite_a que ce soit le bit de a
+        choisi et une probabilité de (1 - probabilite_a) que le bit de b
+        soit choisi
+    """
+    liste_bin_a = list(to_str_bin(a))
+    liste_bin_b = list(to_str_bin(b))
+    res = []
+    for i in range(len(liste_bin_a)):
+        if liste_bin_a[i] == liste_bin_b[i]:
+            res.append(liste_bin_a[i])
+        else:
+            if pourcentage(probabilite_a):
+                res.append(liste_bin_a[i])
+            else:
+                res.append(liste_bin_b[i])
+    return int("".join(res), 2)
+
 def update(reseau, pers_info, args):
     #Variable qui va compter combien de gens vont apprendre la rumeur à chaque
     #Appel à la fonction
@@ -129,6 +149,13 @@ def update(reseau, pers_info, args):
                         rumeur_apprise = bit_flip(rumeur_apprise)
                     elif args.m == "incremental":
                         rumeur_apprise = incremental(rumeur_apprise)
+                #si la personne la connait déjà
+                if liste_apprentissages[apprenti]:
+                    if args.u == "stable":
+                        rumeur_apprise = liste_apprentissages[apprenti]
+                    elif args.u == "mixture":
+                        rumeur_apprise = mixture(rumeur_apprise,
+                                                 liste_apprentissages[apprenti])
                 liste_apprentissages[apprenti] = rumeur_apprise
     pers_info[:] = liste_apprentissages[:]
     return pers_connait
