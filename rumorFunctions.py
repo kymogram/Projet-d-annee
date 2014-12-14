@@ -69,7 +69,7 @@ def verification_arg(args, nom_pers, pers_info):
     if args.s in nom_pers:
         pers_info[nom_pers.index(args.s)] = args.r
     else:
-        raise ValueError(args.r + "n'existe pas dans votre réseau")
+        raise ValueError(args.s + " n'existe pas dans votre réseau")
     if args.r < 0:
         print("\nSoyez raisonnable...\n")
         raise ValueError("Aucun nombre négatif n'est toléré")
