@@ -130,7 +130,7 @@ def update(reseau, pers_info, args):
                           and pers_info[i] == DEFAULT_VALUE_PERS_INFO]
             if len(amis) != 0:
                 apprenti = choice(amis)
-                if not liste_apprentissages[apprenti]:
+                if liste_apprentissages[apprenti] == DEFAULT_VALUE_PERS_INFO:
                     pers_connait += 1
                 rumeur_apprise = pers_info[pers]
                 if pourcentage(args.p):
