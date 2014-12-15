@@ -46,7 +46,7 @@ def main():
     args = parser.parse_args()
 
     nom_pers, reseau = loadNetwork(args.nom_fichier)
-    pers_info = [False for pers in range(len(nom_pers))]
+    pers_info = [DEFAULT_VALUE_PERS_INFO for pers in range(len(nom_pers))]
     #si args.s a sa valeur par défaut
     if args.s == "NULL":
         #on choisit une personne de la liste au hasard
@@ -78,7 +78,7 @@ def main():
         printState(nom_pers, pers_info)
         simulation += 1
         if args.t == -1:
-            keep_looping = pers_info.count(False) != 0
+            keep_looping = pers_info.count(DEFAULT_VALUE_PERS_INFO) != 0
         else:
             keep_looping = simulation < args.t
 

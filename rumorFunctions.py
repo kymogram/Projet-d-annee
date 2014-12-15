@@ -1,5 +1,7 @@
 from random import randint, choice, random
 
+DEFAULT_VALUE_PERS_INFO = -1
+
 def pourcentage(proportion):
     alea = random()
     return alea < proportion
@@ -95,7 +97,7 @@ def printState(nom_pers, pers_info):
         print(str(nom_pers[pers]) + ' ' * (espace_ecart-len(nom_pers[pers])),
               end='')
         #Verifie si la personne connait la rumeur
-        if pers_info[pers]:
+        if pers_info[pers] != DEFAULT_VALUE_PERS_INFO:
             print(to_str_bin(pers_info[pers]) + "    " + str(pers_info[pers]))
         else:
             print("ne connaît pas la rumeur")
@@ -127,7 +129,7 @@ def update(reseau, pers_info, args):
     liste_apprentissages = pers_info[:]
     for pers in range(len(pers_info)):
         #Si la personne connait la rumeur, il peut la transmettre
-        if pers_info[pers]:
+        if pers_info[pers] != DEFAULT_VALUE_PERS_INFO:
             if not args.d:
                 #crée une liste avec les amis de pers
                 amis = [i for i in range(len(pers_info)) if reseau[pers][i] \
@@ -138,7 +140,9 @@ def update(reseau, pers_info, args):
                 #crée une liste avec les amis de pers qui ne connaissent
                 #pas la rumeur
                 amis = [i for i in range(len(pers_info)) \
-                          if reseau[pers][i] and not pers_info[i] and i != pers]
+                          if reseau[pers][i] and not pers_info[i] \
+                          and i != pers \
+                          and pers_info[i] != DEFAULT_VALUE_PERS_INFO]
             if len(amis) != 0:
                 apprenti = choice(amis)
                 if not liste_apprentissages[apprenti]:
@@ -150,7 +154,7 @@ def update(reseau, pers_info, args):
                     elif args.m == "incremental":
                         rumeur_apprise = incremental(rumeur_apprise)
                 #si la personne la connait déjà
-                if liste_apprentissages[apprenti]:
+                if liste_apprentissages[apprenti] != DEFAULT_VALUE_PERS_INFO:
                     if args.u == "stable":
                         rumeur_apprise = liste_apprentissages[apprenti]
                     elif args.u == "mixture":
