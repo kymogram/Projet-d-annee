@@ -125,9 +125,9 @@ def update(reseau, pers_info, args):
                 #crée une liste avec les amis de pers qui ne connaissent
                 #pas la rumeur
                 amis = [i for i in range(len(pers_info)) \
-                          if reseau[pers][i] and not pers_info[i] \
+                          if reseau[pers][i] \
                           and i != pers \
-                          and pers_info[i] != DEFAULT_VALUE_PERS_INFO]
+                          and pers_info[i] == DEFAULT_VALUE_PERS_INFO]
             if len(amis) != 0:
                 apprenti = choice(amis)
                 if not liste_apprentissages[apprenti]:
