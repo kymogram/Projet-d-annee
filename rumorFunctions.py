@@ -51,21 +51,6 @@ def bit_flip(v):
     else:
         bin_rumor[alea_bit_flip] = '0'
     return convert_bin("".join(bin_rumor))
-
-def variable_arg():
-    #Variable pour '-s'
-    alea_indice = randint(0,len(nom_pers)-1)
-    #Variable pour '-r'
-    alea_init = randint(0,255)
-    #Variable pour '-t'
-    nbr_simu = 0
-    while count != len(pers_info):
-        count = 0
-        for elem in pers_info:
-            if elem:
-                count += 1
-        nbr_simu += 1
-    return alea_indice, alea_init, nbr_simu
     
 def verification_arg(args, nom_pers, pers_info):
     if args.r < 0:
